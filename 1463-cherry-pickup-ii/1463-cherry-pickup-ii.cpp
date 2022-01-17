@@ -8,6 +8,7 @@ public:
         if(row==n) return 0;
         if(c1<0 or c2<0 or c1>=m or c2>=m) return INT_MIN;
         if(dp[row][c1][c2]!=-1) return dp[row][c1][c2];
+        
         int ans = 0;
         for(int i=0;i<3;i++){
             int col1 = c1-dx[i];
