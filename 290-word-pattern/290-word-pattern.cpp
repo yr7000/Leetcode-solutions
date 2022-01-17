@@ -1,29 +1,33 @@
 class Solution {
 public:
     bool wordPattern(string pattern, string s) {
-        s+= " ";
+        unordered_map<string,char> mappings;
+        unordered_set<char> chars;
+        
+        int i = 0;
+        int wordCount = 0;
+        s += ' ';
+        
         int n = s.size();
-        vector<string> mappings(26,"");
-        unordered_map<char,int> mpLet;
-        unordered_map<string,int>mpWord;
-        for(auto c:pattern) mpLet[c]++;
-        int i=0;
-        int wordCnt = 0;
+        string currentWord = "";
         string str = "";
         while(i<n){
             if(s[i]==' '){
-                if(wordCnt>=pattern.size()) return false;
-                mpWord[str]++;
-                string mapped = mappings[pattern[wordCnt]-'a'];
-                if(mapped.size()==0) mappings[pattern[wordCnt]-'a'] = str;
-                else if(str!=mapped) return false;
-                wordCnt++;
+                if(mappings.find(str)==mappings.end()){
+                    if(chars.find(pattern[wordCount]) != chars.end()) return false;
+                    mappings[str] = pattern[wordCount];
+                    chars.insert(pattern[wordCount]);
+                }else{
+                    if(pattern[wordCount]!=mappings[str]) return false;
+                }
                 str = "";
+                wordCount++;
             }else{
                 str += s[i];
             }
             i++;
         }
-        return mpLet.size()==mpWord.size();
+        for(auto c:pattern) chars.insert(c);
+        return chars.size()==mappings.size();
     }
 };
