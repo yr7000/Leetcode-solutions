@@ -3,6 +3,7 @@ public:
     bool canPlaceFlowers(vector<int>& flowerbed, int n) {
         int m = flowerbed.size();
         if(n==0) return true;
+        if(n>m) return false;
         for(int i=0;i<m;i++){
             if(flowerbed[i]) continue;
             int left = i>=1?flowerbed[i-1]:0;
