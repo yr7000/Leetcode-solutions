@@ -18,13 +18,16 @@ class Solution{
     	int ptrFordep = 0;
     	int ptrForarr = 0;
     	int platformCount = 0;
+    	int trainCount = 0;
     	while(ptrForarr<n){
     	    if(arr[ptrForarr]<=dep[ptrFordep]){
-    	        platformCount++;
+    	        trainCount++;
+    	        ptrForarr++;
     	    }else{
+    	        trainCount--;
     	        ptrFordep++;
     	    }
-    	    ptrForarr++;
+    	    platformCount = max(platformCount,trainCount);
     	}
     	return platformCount;
     }
