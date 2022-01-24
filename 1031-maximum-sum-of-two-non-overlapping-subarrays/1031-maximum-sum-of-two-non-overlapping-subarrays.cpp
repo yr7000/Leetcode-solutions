@@ -6,20 +6,31 @@ public:
         for(int i=1;i<n;i++){
             nums[i] += nums[i-1];
         }
-        for(int i=firstLen-1;i<nums.size();i++){
-            int sum1 = nums[i]-(i==firstLen-1?0:nums[i-firstLen]);
-            int maxSum2 = 0;
-            if((i-firstLen+1) >=secondLen){
-                for(int j=secondLen-1;j<=(i-firstLen);j++){
-                    maxSum2 = max(maxSum2,nums[j]-(j==secondLen-1?0:nums[j-secondLen]));
-                }   
-            }
-            if((n-i-1)>=secondLen){
-                for(int j=i+secondLen;j<n;j++){
-                    maxSum2 = max(maxSum2,nums[j]-nums[j-secondLen]);
+        int fmaxTillNow = 0,smaxTillNow = 0;
+        for(int i=0;i<n;i++){
+ 
+            int currentFirstLenSum = ((i+firstLen-1)<n ? nums[i+firstLen-1]:0)-(i==0?0:nums[i-1]);
+            result = max(result,currentFirstLenSum+smaxTillNow);
+
+            int currentSecondLenSum = ((i+secondLen-1)<n ? nums[i+secondLen-1]:0)-(i==0?0:nums[i-1]);
+            result = max(result,currentSecondLenSum+fmaxTillNow);
+            
+            if(i>=firstLen-1){
+                if(i==firstLen-1){
+                    fmaxTillNow = max(fmaxTillNow,nums[i]);
+                }else{
+                    fmaxTillNow = max(fmaxTillNow,nums[i]-nums[i-firstLen]);
                 }
             }
-            result = max(result,sum1+maxSum2);
+            
+            if(i>=secondLen-1){
+                if(i==secondLen-1){
+                    smaxTillNow = max(smaxTillNow,nums[i]);
+                }else{
+                    smaxTillNow = max(smaxTillNow,nums[i]-nums[i-secondLen]);
+                }
+            }
+            
         }
         return result;
     }
