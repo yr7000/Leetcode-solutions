@@ -9,11 +9,11 @@ public:
         int fmaxTillNow = 0,smaxTillNow = 0;
         for(int i=0;i<n;i++){
  
-            int currentFirstLenSum = ((i+firstLen-1)<n ? nums[i+firstLen-1]:0)-(i==0?0:nums[i-1]);
-            result = max(result,currentFirstLenSum+smaxTillNow);
+            int firstLenStartingAtI = ((i+firstLen-1)<n ? nums[i+firstLen-1]:0)-(i==0?0:nums[i-1]);
+            result = max(result,firstLenStartingAtI+smaxTillNow);
 
-            int currentSecondLenSum = ((i+secondLen-1)<n ? nums[i+secondLen-1]:0)-(i==0?0:nums[i-1]);
-            result = max(result,currentSecondLenSum+fmaxTillNow);
+            int secondLenStartingAtI = ((i+secondLen-1)<n ? nums[i+secondLen-1]:0)-(i==0?0:nums[i-1]);
+            result = max(result,secondLenStartingAtI+fmaxTillNow);
             
             if(i>=firstLen-1){
                 if(i==firstLen-1){
