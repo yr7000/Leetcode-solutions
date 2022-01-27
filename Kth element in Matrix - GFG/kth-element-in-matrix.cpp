@@ -40,11 +40,7 @@ int kthSmallest(int mat[MAX][MAX], int n, int k)
         for(int i=0;i<n;i++){
             count += lower_bound(mat[i],mat[i]+n,m)-mat[i];
         }
-        if(count<k){
-            l = m;
-        }else{
-            r = m;
-        }
+        count<k?l=m:r=m;
     }
     return l;
 }
