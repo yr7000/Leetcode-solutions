@@ -31,12 +31,20 @@ int main()
 
 int kthSmallest(int mat[MAX][MAX], int n, int k)
 {
-  priority_queue<int> pq;
-  for(int i=0;i<n;i++){
-      for(int j=0;j<n;j++){
-          pq.push(mat[i][j]);
-          if(pq.size()>k) pq.pop();
-      }
-  }
-  return pq.top();
+    int l = mat[0][0], r = mat[n-1][n-1]+1;
+    
+    while(r>(l+1)){
+        int m = l+(r-l)/2;
+        
+        int count = 0;
+        for(int i=0;i<n;i++){
+            count += lower_bound(mat[i],mat[i]+n,m)-mat[i];
+        }
+        if(count<k){
+            l = m;
+        }else{
+            r = m;
+        }
+    }
+    return l;
 }
