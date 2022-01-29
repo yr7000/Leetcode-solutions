@@ -34,11 +34,9 @@ public:
     }
     
     double findMedian() {
-        if(size&1){
-            if(maxHeap.size() > minHeap.size()) return maxHeap.top();
-            return minHeap.top();
-        }
-        return (double)(maxHeap.top() + minHeap.top())/2.0;
+        if(maxHeap.size() > minHeap.size()) return maxHeap.top();
+        else if(maxHeap.size() <minHeap.size()) return minHeap.top();
+        else return (double)(maxHeap.top() + minHeap.top())/2.0;
     }
 };
 
