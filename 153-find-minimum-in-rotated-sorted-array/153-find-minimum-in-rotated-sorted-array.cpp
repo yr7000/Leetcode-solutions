@@ -8,7 +8,7 @@ public:
             if(nums[m] < (m+1<n ? nums[m+1] : INT_MAX) and nums[m] < (m>=1?nums[m-1]:INT_MAX)){
                 return nums[m];
             }
-            if(nums[m]<=nums[r]){
+            if(nums[m]<nums[r]){
                 r = m-1;
             }else{
                 l = m+1;
