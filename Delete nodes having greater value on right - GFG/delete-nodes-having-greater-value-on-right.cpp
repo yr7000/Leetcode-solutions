@@ -50,16 +50,14 @@ class Solution
     {
         if(head==NULL or head->next==NULL) return head;
         
-        Node* maxNode = head;
-        Node* tempHead = head;
-        while(tempHead){
-            if(tempHead->data > maxNode->data){
-                maxNode = tempHead;
-            }
-            tempHead = tempHead->next;
+        Node* subResult = compute(head->next);
+        
+        if(subResult->data <= head->data){
+            head->next = subResult;
+        }else{
+            head = subResult;
         }
-        head = maxNode;
-        head->next = compute(head->next);
+        
         return head;
     }
     
