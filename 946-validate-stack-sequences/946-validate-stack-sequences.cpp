@@ -2,22 +2,15 @@ class Solution {
 public:
     bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
         int n = pushed.size();
-        int poppedPointer = 0;
-        int pushedPointer = 0;
-        vector<bool> poppedOut(n,false);
-        while(poppedPointer < n and pushedPointer < n){
-            if(poppedOut[pushedPointer]){
-                pushedPointer++;
-                continue;
-            }
-            if(pushed[pushedPointer]==popped[poppedPointer]){
-                poppedOut[pushedPointer] = true;
-                while(pushedPointer>=1 and poppedOut[pushedPointer]) pushedPointer--;
-                poppedPointer++;
-            }else{
-                pushedPointer++;
+        stack<int> s;
+        int j = 0;
+        for(int i=0;i<n;i++){
+            s.push(pushed[i]);
+            while(!s.empty() and s.top()==popped[j]){
+                j++;
+                s.pop();
             }
         }
-        return poppedPointer==n;
+        return s.empty();
     }
 };
