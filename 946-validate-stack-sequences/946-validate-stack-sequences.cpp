@@ -4,15 +4,15 @@ public:
         int n = pushed.size();
         int poppedPointer = 0;
         int pushedPointer = 0;
-        vector<bool> visited(n,false);
+        vector<bool> poppedOut(n,false);
         while(poppedPointer < n and pushedPointer < n){
-            if(visited[pushedPointer]){
+            if(poppedOut[pushedPointer]){
                 pushedPointer++;
                 continue;
             }
             if(pushed[pushedPointer]==popped[poppedPointer]){
-                visited[pushedPointer] = true;
-                while(pushedPointer>=1 and visited[pushedPointer]) pushedPointer--;
+                poppedOut[pushedPointer] = true;
+                while(pushedPointer>=1 and poppedOut[pushedPointer]) pushedPointer--;
                 poppedPointer++;
             }else{
                 pushedPointer++;
