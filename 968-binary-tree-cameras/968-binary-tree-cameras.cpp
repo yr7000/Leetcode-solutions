@@ -12,22 +12,22 @@
 class Solution {
 public:
     int minCameras = 0;
-    string dfs(TreeNode* root){
+    string getStateOf(TreeNode* root){
         if(root == NULL) return "covered";
-        string leftTreeState = dfs(root->left);
-        string rightTreeState = dfs(root->right);
-        if(leftTreeState == "notCovered" or rightTreeState == "notCovered"){
+        string leftChildState = getStateOf(root->left);
+        string rightChildState = getStateOf(root->right);
+        if(leftChildState == "notCovered" or rightChildState == "notCovered"){
             minCameras++;
             return "camera";
         }
-        if(leftTreeState == "camera" or rightTreeState == "camera"){
+        if(leftChildState == "camera" or rightChildState == "camera"){
             return "covered";
         }
         return "notCovered";
     }
     
     int minCameraCover(TreeNode* root) {
-        string rootState = dfs(root);
+        string rootState = getStateOf(root);
         if(rootState == "notCovered"){
             minCameras++;
         }
