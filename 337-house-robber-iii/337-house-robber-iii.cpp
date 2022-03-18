@@ -11,19 +11,22 @@
  */
 class Solution {
 public:
-    map<pair<TreeNode*,int>,int> dp;
-    int maxAmount(TreeNode* root,bool tookParentMoney){
-        if(root==NULL) return 0;
-        if(dp.count({root,tookParentMoney})) return dp[{root,tookParentMoney}];
-        int firstChoiseRobbery = maxAmount(root->left,false) + maxAmount(root->right,false);
-        if(tookParentMoney){
-            return dp[{root,tookParentMoney}] = firstChoiseRobbery;
-        }
-        int secondChoiseRobbery = root->val + maxAmount(root->left,true) + maxAmount(root->right,true);
-        return dp[{root,tookParentMoney}] = max(firstChoiseRobbery,secondChoiseRobbery);
-    }
+    
+    unordered_map<TreeNode*,int> dp;
     
     int rob(TreeNode* root) {
-        return maxAmount(root,false);
+        if(root==NULL) return 0;
+        
+        if(dp.count(root)) return dp[root];
+        
+        int left_left_robbery = root->left ? rob(root->left->left) : 0;
+        int left_right_robbery = root->left ? rob(root->left->right) : 0;
+        int right_left_robbery = root->right ? rob(root->right->left) : 0;
+        int right_right_robbery = root->right ? rob(root->right->right) : 0;
+        
+        int choise1 = root->val + left_left_robbery + left_right_robbery + right_left_robbery + right_right_robbery;
+        int choise2 = rob(root->left) + rob(root->right);
+        
+        return dp[root] = max(choise1,choise2);
     }
 };
