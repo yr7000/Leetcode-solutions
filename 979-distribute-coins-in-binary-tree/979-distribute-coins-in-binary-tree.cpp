@@ -11,16 +11,22 @@
  */
 class Solution {
 public:
-    int result = 0;
-    int dfs(TreeNode* root){
+    int minMovesRequired = 0;
+    
+    // positive return value of this function indicates children giving the money to the parent
+    // negative return value of this function indicates children requesting the money from the parent
+    int getBalanceFrom(TreeNode* root){
         if(root==NULL) return 0;
-        root->val += dfs(root->left);
-        root->val += dfs(root->right);
-        result += abs(root->val - 1);
-        return root->val-1;
+        // getting the coins from both children in a recursive way
+        int balanceFromLeftChild = getBalanceFrom(root->left);
+        int balanceFromRightChild = getBalanceFrom(root->right);
+        // movement of coins between children and the parent
+        minMovesRequired += abs(balanceFromLeftChild) + abs(balanceFromRightChild);
+        // returning the coins that it can give it to the parent node.
+        return root->val + balanceFromLeftChild + balanceFromRightChild -1;
     }
     int distributeCoins(TreeNode* root) {
-        int noNeed = dfs(root);
-        return result;
+        getBalanceFrom(root);
+        return minMovesRequired;
     }
 };
