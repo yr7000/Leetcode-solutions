@@ -13,16 +13,17 @@ class Solution {
 public:
     int result = INT_MIN;
     
-    int dfs(TreeNode* root){
+    int maxSumOfPathWithNoU(TreeNode* root){
         if(root==NULL) return 0;
-        int l = dfs(root->left);
-        int r = dfs(root->right);
-        result = max({result,root->val+max({0,l,r,l+r})});
+        int l = maxSumOfPathWithNoU(root->left);
+        int r = maxSumOfPathWithNoU(root->right);
+        int maxPathSumForThisNode = root->val+max({0,l,r,l+r});
+        result = max(result,maxPathSumForThisNode);
         return root->val + max({0,l,r});
     }
     
     int maxPathSum(TreeNode* root) {
-        dfs(root);
+        maxSumOfPathWithNoU(root);
         return result;
     }
 };
