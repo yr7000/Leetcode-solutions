@@ -11,21 +11,26 @@
  */
 class Solution {
 public:
-    unordered_map<int,int> mp;
-    unordered_map<int,vector<int>> freqVec;
+    unordered_map<int,int> frequency;
+    int maxFrequency = 0;
     int dfs(TreeNode* root){
         if(root==NULL) return 0;
         int leftSubTreeSum = dfs(root->left);
         int rightSubTreeSum = dfs(root->right);
         int rootSubTreeSum = root->val + leftSubTreeSum + rightSubTreeSum;
-        mp[rootSubTreeSum]++;
-        freqVec[-mp[rootSubTreeSum]].push_back(rootSubTreeSum);
+        frequency[rootSubTreeSum]++;
+        maxFrequency = max(maxFrequency,frequency[rootSubTreeSum]);
         return rootSubTreeSum;
     }
     
     vector<int> findFrequentTreeSum(TreeNode* root) {
-        if(root==NULL) return {};
         dfs(root);
-        return freqVec.begin()->second;
+        vector<int> result;
+        for(auto it:frequency){
+            if(it.second == maxFrequency){
+                result.push_back(it.first);
+            }
+        }
+        return result;
     }
 };
