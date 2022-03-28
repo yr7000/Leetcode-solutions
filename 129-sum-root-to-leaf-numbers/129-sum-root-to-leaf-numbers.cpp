@@ -13,19 +13,21 @@ class Solution {
 public:
     int result = 0;
     
-    void sumNumbersHelper(TreeNode* root, string currentPath){
-        char currentNumber = (char)(root->val+48);
-        currentPath += currentNumber;
+    int getSum(TreeNode* root, int currentPath){
+        // add the current number to the current path
+        currentPath = currentPath*10 + root->val;
+        // if we reach a leaf node, add the current path value to the result
         if(root->right==NULL && root->left==NULL){
-            result += stoi(currentPath);
-            return;
+            return currentPath;
         }
-        if(root->left) sumNumbersHelper(root->left,currentPath);
-        if(root->right) sumNumbersHelper(root->right,currentPath);
+        // recursively pass the currentPath to children
+        int result = 0;
+        if(root->left) result += getSum(root->left,currentPath);
+        if(root->right) result += getSum(root->right,currentPath);
+        return result;
     }
     
     int sumNumbers(TreeNode* root) {
-        sumNumbersHelper(root,"");
-        return result;
+        return getSum(root,0);
     }
 };
