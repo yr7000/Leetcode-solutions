@@ -11,40 +11,22 @@
  */
 class Solution {
 public:
-    // stores all the paths with sum as target sum.
-    vector<vector<int>> result;
     
-    // gets the path values vector
-    vector<int> getPathVector(vector<pair<int,int>> &path){
-        vector<int> pathValues;
-        for(int i=0;i<path.size();i++){
-            pathValues.push_back(path[i].first);
-        }
-        return pathValues;
-    }
-    
-    void getAllPaths(TreeNode* root, int targetSum, vector<pair<int,int>> path){
+    void getAllPaths(TreeNode* root, int targetSum, vector<int> path, vector<vector<int>> &paths){
         if(root==NULL) return;
-        // include the current node in the path
-        int pathSum = path.size()==0 ? root->val : root->val + path.back().second;
-        path.push_back({root->val, pathSum});
-        // if current node is a leaf node and path sum is target sum 
-        // then add this path to result.
-        if(root->left==NULL and root->right == NULL and pathSum == targetSum){
-            result.push_back(getPathVector(path));
-            return;
+        path.push_back(root->val);
+        if(root->left==NULL and root->right==NULL and targetSum == root->val){
+            paths.push_back(path);
         }
-        // recursively pass the path to the children
-        getAllPaths(root->left, targetSum, path);
-        getAllPaths(root->right, targetSum, path);
-        return;
+        getAllPaths(root->left,targetSum-root->val, path, paths);
+        getAllPaths(root->right,targetSum-root->val, path, paths);
+        path.pop_back();
     }
     
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
-        // path[i].first contains the node value
-        // path[i].second contains the path sum till the current node
-        vector<pair<int,int>> path;
-        getAllPaths(root,targetSum,path);
-        return result;
+        vector<vector<int>> paths;
+        vector<int> path;
+        getAllPaths(root, targetSum, path, paths);
+        return paths;
     }
 };
