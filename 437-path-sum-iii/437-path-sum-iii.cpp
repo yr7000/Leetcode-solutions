@@ -15,10 +15,7 @@ public:
     int pathSumHelper(TreeNode* root,long long currentSum,int targetSum,unordered_map<int,int> &prefixSum){
         if(root==NULL) return 0;
         currentSum += root->val;
-        int numPathTillCurrent = 0;
-        if(prefixSum.count(currentSum-targetSum)>0){
-            numPathTillCurrent = prefixSum[currentSum-targetSum];
-        }
+        int numPathTillCurrent = prefixSum[currentSum-targetSum];
         prefixSum[currentSum]++;
         int result = numPathTillCurrent + pathSumHelper(root->left,currentSum,targetSum,prefixSum)+
             pathSumHelper(root->right,currentSum,targetSum,prefixSum);
