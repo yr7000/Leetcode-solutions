@@ -12,20 +12,23 @@
 class Solution {
 public:
     
-    long long int pathSumHelper(TreeNode* root,long long int targetSum){
-        if(root==NULL) return 0LL;
-        long long int result = 0LL;
-        if(root->val==targetSum) result++;
-        result += pathSumHelper(root->left,targetSum-root->val);
-        result += pathSumHelper(root->right,targetSum-root->val);
-        return result; 
+    int pathSumHelper(TreeNode* root,long long currentSum,int targetSum,unordered_map<int,int> &prefixSum){
+        if(root==NULL) return 0;
+        currentSum += root->val;
+        int numPathTillCurrent = 0;
+        if(prefixSum.count(currentSum-targetSum)>0){
+            numPathTillCurrent = prefixSum[currentSum-targetSum];
+        }
+        prefixSum[currentSum]++;
+        int result = numPathTillCurrent + pathSumHelper(root->left,currentSum,targetSum,prefixSum)+
+            pathSumHelper(root->right,currentSum,targetSum,prefixSum);
+        prefixSum[currentSum]--;
+        return result;
     }
     
     int pathSum(TreeNode* root, int targetSum) {
-        if(root==NULL) return 0;
-        int fromRoot = pathSumHelper(root,targetSum);
-        int fromLeftChild = pathSum(root->left,targetSum);
-        int fromRightChild = pathSum(root->right,targetSum);
-        return fromRoot + fromLeftChild + fromRightChild;
+        unordered_map<int,int> prefixSum;
+        prefixSum[0]++;
+        return pathSumHelper(root,0,targetSum,prefixSum);
     }
 };
