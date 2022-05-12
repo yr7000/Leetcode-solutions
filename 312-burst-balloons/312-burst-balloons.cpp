@@ -1,20 +1,22 @@
 class Solution {
 public:
-    int dp[505][505];
-    int fun(vector<int> &nums,int l,int r){
-        if(l>r) return 0;
-        if(dp[l][r]!=-1) return dp[l][r];
-        int ans = INT_MIN;
-        int leftValue = l-1>=0?nums[l-1]:1;
-        int rightValue = r+1<=nums.size()-1?nums[r+1]:1;
-        for(int i=l;i<=r;i++){
-            ans = max(ans,leftValue*nums[i]*rightValue + fun(nums,l,i-1) + fun(nums,i+1,r));
+    int memo[301][301];
+    
+    int dp(int i, int j, vector<int> &nums){
+        if(i>j) return 0;
+        if(memo[i][j]!=-1) return memo[i][j];
+        int result = 0;
+        for(int lastBalloon = i; lastBalloon<=j; lastBalloon++){
+            int leftBalloon = (i == 0)?1:nums[i-1];
+            int rightBalloon = (j == nums.size()-1)?1:nums[j+1];
+            int coins = leftBalloon * rightBalloon * nums[lastBalloon] + dp(i,lastBalloon-1,nums) + dp(lastBalloon+1,j,nums);
+            result = max(result,coins);         
         }
-        return dp[l][r] = ans;
+        return memo[i][j] = result;
     }
     
     int maxCoins(vector<int>& nums) {
-        memset(dp,-1,sizeof(dp));
-        return fun(nums,0,nums.size()-1);
+        memset(memo,-1,sizeof(memo));
+        return dp(0,nums.size()-1,nums);
     }
 };
