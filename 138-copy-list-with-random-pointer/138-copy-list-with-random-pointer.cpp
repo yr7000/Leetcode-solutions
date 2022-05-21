@@ -18,6 +18,7 @@ class Solution {
 public:
    
     Node* copyRandomList(Node* head) {
+        if(head==NULL) return NULL;
         Node* temp = head;
         // step 1: adding copies just next to the original nodes.
         while(temp!=NULL){
@@ -37,20 +38,14 @@ public:
         
         // step 3: removing the unwanted links.
         temp = head;
-        Node* ansHead;
-        Node* ansTail;
-        while(temp){
-            if(ansHead==NULL){
-                ansHead = temp->next;
-                ansTail = temp->next;
-            }else{
-                ansTail->next = temp->next;
-                ansTail = temp->next;
-            }
-            temp->next = temp->next->next;
+        Node* resultHead = head->next;
+        while(temp and temp->next){
+            Node* originalNext = temp->next->next;
+            if(originalNext) temp->next->next = originalNext->next;
+            temp->next = originalNext;
             temp = temp->next;
         }
-        return ansHead;
+        return resultHead;
     }
 
 };
