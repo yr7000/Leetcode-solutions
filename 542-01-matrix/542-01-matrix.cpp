@@ -8,8 +8,9 @@ public:
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 if(grid[i][j]==0){
-                    visited[i][j] = true;
                     q.push({i,j});
+                }else{
+                    grid[i][j] = -1;
                 }
             }
         }
@@ -19,8 +20,7 @@ public:
             for(int k=0;k<4;k++){
                 int i = currentNode.first + directions[k][0];
                 int j = currentNode.second + directions[k][1];
-                if(i<0 or j<0 or i>=m or j>=n or visited[i][j]==true) continue;
-                visited[i][j] = true;
+                if(i<0 or j<0 or i>=m or j>=n or grid[i][j]!=-1) continue;
                 grid[i][j] = grid[currentNode.first][currentNode.second]+1;
                 q.push({i,j});
             }
