@@ -48,19 +48,20 @@ public:
             }
         }
         
-        unordered_map<int,vector<int>> ump;
+        unordered_map<int,vector<int>> components;
         for(int i=0;i<n;i++){
-            ump[find(i,parent)].push_back(i);
+            components[find(i,parent)].push_back(i);
         }
         
         vector<vector<string>> result;
-        for(auto ele:ump){
+        for(auto component:components){
             vector<string> subResult;
-            subResult.push_back(accounts[ele.first][0]);
+            string personName = accounts[component.first][0];
+            subResult.push_back(personName);
             set<string> ust;
-            for(int i=0;i<ele.second.size();i++){
-                for(int j=1;j<accounts[ele.second[i]].size();j++){
-                    string currentString = accounts[ele.second[i]][j];
+            for(int i=0;i<component.second.size();i++){
+                for(int j=1;j<accounts[component.second[i]].size();j++){
+                    string currentString = accounts[component.second[i]][j];
                     ust.insert(currentString);
                 }
             }
