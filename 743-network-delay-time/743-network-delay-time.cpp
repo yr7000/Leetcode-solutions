@@ -21,6 +21,7 @@ public:
             if(visited[currentNode]) continue;
             visited[currentNode] = true;
             for(auto nbr: graph[currentNode]){
+                if(visited[nbr.first]) continue;
                 if(distances[nbr.first] > distanceFromSource + nbr.second){
                     distances[nbr.first] = distanceFromSource + nbr.second;
                     minHeap.push({distances[nbr.first],nbr.first});
