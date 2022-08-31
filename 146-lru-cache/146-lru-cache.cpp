@@ -1,74 +1,72 @@
-class LRUCache {
+class DLL{
 public:
+    int key;
+    int data;
+    DLL* prev;
+    DLL* next;
     
-    class DllNode{
-        public:
-        int key;
-        int value;
-        DllNode* prev;
-        DllNode* next;
-        DllNode(int key,int value){
-            this->key = key;
-            this->value = value;
-        }
-    };
+    DLL(int key,int data){
+        this->key = key;
+        this->data = data;
+        prev = next = NULL;
+    }
+};
+
+class LRUCache {
+private:
     
-    unordered_map<int,DllNode*> mp;
-    int cap;
+    unordered_map<int,DLL*> mappings;
+    DLL* d1 = new DLL(-1,-1);
+    DLL* d2 = new DLL(-1,-1);
     
-    DllNode* head= new DllNode(-1,-1);
-    DllNode* tail = new DllNode(-1,-1);
+    void insert(DLL* newNode){
+        DLL* nextNode = d1->next;
+        d1->next = newNode;
+        newNode->prev = d1;
+        newNode->next = nextNode;
+        nextNode->prev = newNode;
+    }
     
+    void deleteNode(DLL* targetNode){
+        mappings.erase(targetNode->key);
+        DLL* prevNode = targetNode->prev;
+        DLL* nextNode = targetNode->next;
+        prevNode->next = nextNode;
+        nextNode->prev = prevNode;
+        targetNode->next = targetNode->prev = NULL;
+    }
     
+public:   
+    int capacity;
     LRUCache(int capacity) {
-        cap = capacity;
-        head->next = tail;
-        tail->prev = head;
+        this->capacity = capacity;
+        d1->next = d2;
+        d2->prev = d1;
     }
     
     int get(int key) {
-        if(mp.count(key)>0){
-            int ans = mp[key]->value;
-            deleteNode(mp[key]);
-            DllNode* recent = new DllNode(key,ans);
-            addNode(recent);
-            mp[key] = recent;
-            return ans;
+        if(mappings.count(key) > 0){
+            int result = mappings[key]->data;
+            // delete the node from its position
+            deleteNode(mappings[key]);
+            // insert it in the front
+            DLL* newNode = new DLL(key,result);
+            mappings[key] = newNode;
+            insert(newNode);
+            return result;
         }
         return -1;
     }
     
-    void addNode(DllNode* x){
-        DllNode* temp = head->next;
-        head->next = x;
-        x->prev = head;
-        temp->prev = x;
-        x->next = temp;
-        return;
-    }
-    
-    void deleteNode(DllNode* x){
-        DllNode* prevx = x->prev;
-        DllNode* postx = x->next;
-        prevx->next = postx;
-        postx->prev = prevx;
-        x->prev = x->next = NULL;
-        return;
-    }
-    
     void put(int key, int value) {
-        if(mp.count(key)>0){
-            DllNode* existingNode = mp[key];
-            deleteNode(mp[key]);
-        }else if(mp.size()==cap){
-            DllNode* notFreq = tail->prev;
-            mp.erase(tail->prev->key);
-            deleteNode(notFreq);
+        if(mappings.count(key)>0){
+            deleteNode(mappings[key]);
+        }else if(mappings.size() == capacity){
+            deleteNode(d2->prev);
         }
-        DllNode* recent = new DllNode(key,value);
-        addNode(recent);
-        mp[key] = recent;
-        return;
+        DLL* newNode = new DLL(key,value);
+        mappings[key] = newNode;
+        insert(newNode);
     }
 };
 
