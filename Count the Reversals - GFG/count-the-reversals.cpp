@@ -27,7 +27,7 @@ int countRev (string s)
             st.push('{');
         }else{
             if(st.empty()) {
-                st.push('}');
+                st.push('{');
                 result++;
             }
             else st.pop();
