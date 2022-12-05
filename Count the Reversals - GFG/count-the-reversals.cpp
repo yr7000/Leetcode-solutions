@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -13,26 +13,26 @@ int main()
     }
 }
 
-// Contributed By: Pranay Bansal// } Driver Code Ends
+// Contributed By: Pranay Bansal
+// } Driver Code Ends
 
 
 
 int countRev (string s)
 {
-    stack<char> st;
-    int countReverseBracets = 0;
-    for(char bracket:s){
+    int result = 0;
+    stack<int> st;
+    for(auto bracket : s){
         if(bracket == '{'){
             st.push('{');
         }else{
-            if(st.empty()){
+            if(st.empty()) {
                 st.push('}');
-                countReverseBracets++;
-            }else{
-                st.pop();
+                result++;
             }
+            else st.pop();
         }
     }
     if(st.size()&1) return -1;
-    return countReverseBracets + st.size()/2;
+    return st.size()/2 + result;
 }
