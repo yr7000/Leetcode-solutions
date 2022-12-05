@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 // Initial Template for C++
 
 #include <bits/stdc++.h>
@@ -24,30 +24,29 @@ int main() {
         }
         cout << endl;
     }
-}// } Driver Code Ends
+}
+// } Driver Code Ends
 
 
 // User function Template for C++
 
 // Function to reverse first k elements of a queue.
 
-void modifyHelper(queue<int>&q,int k){
-    if(k==0) return ;
-    int firstEntered = q.front();
+void helper(queue<int> &q, int k){
+    if(k == 0) return;
+    int front = q.front();
     q.pop();
-    modifyHelper(q,k-1);
-    q.push(firstEntered);
+    helper(q,k-1);
+    q.push(front);
     return;
 }
 
 queue<int> modifyQueue(queue<int> q, int k) {
-    modifyHelper(q,k);
-    int count = 0;
-    while(count<q.size()-k){
-        count++;
-        int top = q.front();
+    helper(q,k);
+    for(int i = 0;i<(q.size()-k);i++){
+        int front = q.front();
         q.pop();
-        q.push(top);
+        q.push(front);
     }
     return q;
 }
