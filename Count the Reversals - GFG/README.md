@@ -1,7 +1,6 @@
 # Count the Reversals
-## Medium 
-<div class="problem-statement">
-                <p></p><p><span style="font-size:18px">Given a string <strong>S</strong> consisting of only opening and closing curly brackets<strong> '{'</strong> and<strong> '}',</strong>&nbsp;find out the minimum&nbsp;number of reversals required to convert the string into a balanced expression.<br>
+## Medium
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given a string <strong>S</strong> consisting of only opening and closing curly brackets<strong> '{'</strong> and<strong> '}',</strong>&nbsp;find out the minimum&nbsp;number of reversals required to convert the string into a balanced expression.<br>
 A reversal means changing <strong>'{'</strong> to <strong>'}'</strong> or vice-versa.</span></p>
 
 <p><span style="font-size:18px"><strong>Example 1:</strong></span></p>
@@ -33,5 +32,4 @@ You don't need to read input or print anything. Your task is to complete the fun
 1 ≤ |S| ≤ 10<sup>5</sup></span></p>
 
 <p>&nbsp;</p>
- <p></p>
-            </div>
+</div>
