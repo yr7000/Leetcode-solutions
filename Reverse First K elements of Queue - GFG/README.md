@@ -1,7 +1,6 @@
 # Reverse First K elements of Queue
-## Easy 
-<div class="problem-statement">
-                <p></p><p><span style="font-size:18px">Given an integer <strong>K </strong>and a&nbsp;<a href="http://www.geeksforgeeks.org/queue-data-structure/" target="_blank">queue</a>&nbsp;of integers, we need to reverse the order of the first<strong> K</strong> elements of the queue, leaving the other elements in the same relative order.</span></p>
+## Easy
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an integer <strong>K </strong>and a&nbsp;<a href="http://www.geeksforgeeks.org/queue-data-structure/">queue</a>&nbsp;of integers, we need to reverse the order of the first<strong> K</strong> elements of the queue, leaving the other elements in the same relative order.</span></p>
 
 <p><span style="font-size:18px">Only following standard operations are allowed on queue.</span></p>
 
@@ -46,13 +45,10 @@ output will be 1 2 3 4.</span></pre>
 <p><strong><span style="font-size:18px">Your Task:</span></strong><br>
 <span style="font-size:18px"><strong>Complete </strong>the <strong>provided function</strong> <strong>modifyQueue </strong>that takes <strong>queue and k</strong> as <strong>parameters </strong>and <strong>returns </strong>a <strong>modified </strong>queue. The <strong>printing </strong>is done <strong>automatically </strong>by the <strong>driver code</strong>.</span></p>
 
-<p><span style="font-size:18px"><strong>Expected Time Complexity</strong> : O(n)<br>
-<strong>Expected Auxiliary Space </strong>: O(n)</span></p>
+<p><span style="font-size:18px"><strong>Expected Time Complexity</strong> : O(N)<br>
+<strong>Expected Auxiliary Space </strong>: O(K)</span></p>
 
 <p><span style="font-size:18px"><strong>Constraints:</strong><br>
 1 &lt;= N &lt;= 1000<br>
 1 &lt;= K &lt;= N</span></p>
-
-<p><span style="font-size:18px"><strong>Note:&nbsp;</strong>The <strong>Input/Output</strong> format and the&nbsp;<strong>Example</strong> given are used for the system's internal purpose, and should be used by a user for <strong>Expected Output</strong> only. As it is a function problem, hence a user should not read any input from stdin/console. The task is to complete the function specified, and not to write the full code.</span></p>
- <p></p>
-            </div>
+</div>
